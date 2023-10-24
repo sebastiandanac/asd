@@ -2,7 +2,7 @@
   <div class="p-[16px] md:p-[20px] flex flex-col gap-[12px] bg-white">
     <div class="flex justify-between items-center">
       <div class="flex items-center">
-        <component :is="icon" class="icon" />
+        <img :src="icon" alt="">
         <span class="text-[#424761] ml-[8px] text-[15px] font-semibold">{{ data.title }}</span>
         <Info class="w-[16px] ml-[4px]" />
       </div>
@@ -20,6 +20,10 @@
 import Info from '~/assets/info.svg'
 import Stick from '~/components/table/row/Stick.vue'
 
+import good from '~/assets/icons/color/good.svg?url'
+import warning from '~/assets/icons/color/warning.svg?url'
+import danger from '~/assets/icons/color/danger.svg?url'
+
 export type Status = 'good' | 'warning' | 'danger'
 
 export type RowType = {
@@ -31,7 +35,13 @@ export type RowType = {
 
 const props = defineProps<{ data: RowType }>()
 
-const icon = defineAsyncComponent(() => import(`~/assets/icons/color/${props.data.type}.svg?component`))
+const icon = computed(() => {
+  switch (props.data.type) {
+    case 'good': return good
+    case 'warning': return warning
+    case 'danger': return danger
+  }
+})
 
 </script>
 

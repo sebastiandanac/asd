@@ -41,6 +41,7 @@ const rows: RowType[] = [
     data: isMobile ? warning50 : danger
   }
 ]
+
 </script>
 
 <style lang="scss" scoped>
