@@ -10,18 +10,23 @@
       <span class="text-[#424761] font-medium text-[14px]">{{ data.uptime }} uptime</span>
     </div>
 
-    <img class="max-md:hidden" src="assets/bars/warning-bars.svg" alt="bars">
-    <img class="md:hidden" src="assets/bars/warning-bars-mobile.svg" alt="bars">
+    <div class="flex gap-[3px] justify-between">
+      <Stick v-for="(item, i) in data.data" :key="i" :status="item.status" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Info from '~/assets/info.svg'
+import Stick from '~/components/table/row/Stick.vue'
+
+export type Status = 'good' | 'warning' | 'danger'
 
 export type RowType = {
   title: string
-  type: 'good' | 'warning' | 'danger'
+  type: Status
   uptime: string
+  data: {status: Status}[]
 }
 
 const props = defineProps<{ data: RowType }>()
